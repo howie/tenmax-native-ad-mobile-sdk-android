@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import io.tenmax.oyster.AdListener;
 import io.tenmax.oyster.AdLoader;
-import io.tenmax.oyster.common.internal.AdListener;
-import io.tenmax.oyster.format.NativeAd;
-import io.tenmax.oyster.format.NativeAppInstallAd;
-import io.tenmax.oyster.format.NativeContentAd;
-import io.tenmax.oyster.view.NativeAppInstallAdView;
-import io.tenmax.oyster.view.NativeContentAdView;
+import io.tenmax.oyster.NativeAd;
+import io.tenmax.oyster.NativeAppInstallAd;
+import io.tenmax.oyster.NativeAppInstallAdView;
+import io.tenmax.oyster.NativeContentAd;
+import io.tenmax.oyster.NativeContentAdView;
 
 public class MainActivity extends AppCompatActivity {
 
