@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:checked="true"
-                android:text="Request App Install Ads" />
+                android:text="Request App Install Ads"
+        />
 
         <CheckBox
                 android:id="@+id/appContent"
@@ -34,12 +35,12 @@
         <Button
                 android:id="@+id/refresh"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Refresh Ad" />
-
 
     </LinearLayout>
 </ScrollView>
