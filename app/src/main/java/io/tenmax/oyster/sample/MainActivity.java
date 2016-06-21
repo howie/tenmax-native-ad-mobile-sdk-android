@@ -1,6 +1,5 @@
 package io.tenmax.oyster.sample;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +16,7 @@ import io.tenmax.oyster.NativeAppInstallAd;
 import io.tenmax.oyster.NativeAppInstallAdView;
 import io.tenmax.oyster.NativeContentAd;
 import io.tenmax.oyster.NativeContentAdView;
+import io.tenmax.oyster.NativeException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     AdLoader adLoader = builder.withAdListener(new AdListener() {
       @Override
-      public void onAdFailedToLoad(Exception e) {
+      public void onAdFailedToLoad(NativeException e) {
         Toast.makeText(MainActivity.this,
             "Failed to load native ad: " + e.getMessage(),
             Toast.LENGTH_SHORT).show();
