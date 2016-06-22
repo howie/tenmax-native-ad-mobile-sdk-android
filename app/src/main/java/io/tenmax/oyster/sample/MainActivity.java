@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import io.tenmax.oyster.AdListener;
-import io.tenmax.oyster.AdLoader;
-import io.tenmax.oyster.NativeAd;
-import io.tenmax.oyster.NativeContentAd;
-import io.tenmax.oyster.NativeContentAdView;
-import io.tenmax.oyster.NativeException;
+import io.tenmax.oyster.OysterAd;
+import io.tenmax.oyster.OysterAdListener;
+import io.tenmax.oyster.OysterAdLoader;
+import io.tenmax.oyster.OysterContentAd;
+import io.tenmax.oyster.OysterContentAdView;
+import io.tenmax.oyster.OysterException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void requestAds(final int position) {
-    AdLoader.Builder builder = new AdLoader.Builder(this, OYSTER_AD_UNIT_ID);
-    builder.forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
+    OysterAdLoader.Builder builder = new OysterAdLoader.Builder(this, OYSTER_AD_UNIT_ID);
+    builder.forContentAd(new OysterContentAd.OnContentAdLoadedListener() {
       @Override
-      public void onContentAdLoaded(NativeContentAd nativeContentAd) {
-        data.add(position, nativeContentAd);
+      public void onContentAdLoaded(OysterContentAd oysterContentAd) {
+        data.add(position, oysterContentAd);
         adapter.notifyItemInserted(position);
       }
     });
-    AdLoader adLoader = builder.withAdListener(new AdListener() {
+    OysterAdLoader adLoader = builder.withAdListener(new OysterAdListener() {
       @Override
-      public void onAdFailedToLoad(NativeException e) {
+      public void onAdFailedToLoad(OysterException e) {
         Toast.makeText(MainActivity.this,
-            "Failed to load native ad: " + e.getMessage(),
+            "Failed to load oyster ad: " + e.getMessage(),
             Toast.LENGTH_SHORT).show();
       }
     }).build();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
   class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     final int VIEW_TYPE_NORMAL = 0;
-    final int VIEW_TYPE_NATIVE_AD = 1;
+    final int VIEW_TYPE_OYSTER_AD = 1;
     private List<Object> data;
 
     RecyclerAdapter(List<Object> data) {
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      if (viewType == VIEW_TYPE_NATIVE_AD) {
-        return new NativeAdHolder((NativeContentAdView) LayoutInflater.from(parent.getContext())
+      if (viewType == VIEW_TYPE_OYSTER_AD) {
+        return new OysterAdHolder((OysterContentAdView) LayoutInflater.from(parent.getContext())
             .inflate(R.layout.ad_content, parent, false));
       } else if (viewType == VIEW_TYPE_NORMAL) {
         return new ItemHolder(LayoutInflater.from(parent.getContext())
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-      if (holder instanceof NativeAdHolder) {
-        ((NativeAdHolder) holder).bind(((NativeContentAd) data.get(position)));
+      if (holder instanceof OysterAdHolder) {
+        ((OysterAdHolder) holder).bind(((OysterContentAd) data.get(position)));
       } else if (holder instanceof ItemHolder) {
         ((ItemHolder) holder).bind(((String) data.get(position)));
       }
@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
       Object o = data.get(position);
       if (o instanceof String) {
         return VIEW_TYPE_NORMAL;
-      } else if (o instanceof NativeContentAd) {
-        return VIEW_TYPE_NATIVE_AD;
+      } else if (o instanceof OysterContentAd) {
+        return VIEW_TYPE_OYSTER_AD;
       }
-      throw new RuntimeException("Unknown view type in PublicationAdapter");
+      throw new IllegalArgumentException("Unknown view type in PublicationAdapter");
     }
 
     @Override
@@ -108,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
       return data.size();
     }
 
-    class NativeAdHolder extends RecyclerView.ViewHolder {
+    class OysterAdHolder extends RecyclerView.ViewHolder {
 
-      private final NativeContentAdView adView;
+      private final OysterContentAdView adView;
 
-      public NativeAdHolder(NativeContentAdView adView) {
+      public OysterAdHolder(OysterContentAdView adView) {
         super(adView);
         this.adView = adView;
         adView.setHeadlineView(adView.findViewById(R.id.contentad_headline));
@@ -122,19 +122,17 @@ public class MainActivity extends AppCompatActivity {
         adView.setAdvertiserView(adView.findViewById(R.id.contentad_advertiser));
       }
 
-      public void bind(NativeContentAd nativeContentAd) {
-        // Some assets are guaranteed to be in every NativeContentAd.
-        ((TextView) adView.getHeadlineView()).setText(nativeContentAd.getHeadline());
-        ((TextView) adView.getBodyView()).setText(nativeContentAd.getBody());
-        ((TextView) adView.getAdvertiserView()).setText(nativeContentAd.getAdvertiser());
+      public void bind(OysterContentAd oysterContentAd) {
+        ((TextView) adView.getHeadlineView()).setText(oysterContentAd.getHeadline());
+        ((TextView) adView.getBodyView()).setText(oysterContentAd.getBody());
+        ((TextView) adView.getAdvertiserView()).setText(oysterContentAd.getAdvertiser());
 
-        if (nativeContentAd.getImage().getDrawable() != null) {
-          ((ImageView) adView.getImageView()).setImageDrawable(nativeContentAd.getImage()
+        if (oysterContentAd.getImage().getDrawable() != null) {
+          ((ImageView) adView.getImageView()).setImageDrawable(oysterContentAd.getImage()
               .getDrawable());
         }
 
-        // Some aren't guaranteed, however, and should be checked.
-        NativeAd.Image logoImage = nativeContentAd.getLogo();
+        OysterAd.Image logoImage = oysterContentAd.getLogo();
 
         if (logoImage == null) {
           adView.getLogoView().setVisibility(View.INVISIBLE);
@@ -143,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
           adView.getLogoView().setVisibility(View.VISIBLE);
         }
 
-        // Assign native ad object to the native view.
-        adView.setNativeAd(nativeContentAd);
+        adView.setOysterAd(oysterContentAd);
       }
     }
 
