@@ -16,9 +16,11 @@ import android.widget.Toast;
 import io.tenmax.oyster.OysterAd;
 import io.tenmax.oyster.OysterAdListener;
 import io.tenmax.oyster.OysterAdLoader;
+import io.tenmax.oyster.OysterAdOption;
 import io.tenmax.oyster.OysterContentAd;
 import io.tenmax.oyster.OysterContentAdView;
 import io.tenmax.oyster.OysterException;
+import io.tenmax.oyster.OysterImageSize;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,23 +44,26 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void requestAds(final int position) {
-    OysterAdLoader.Builder builder = new OysterAdLoader.Builder(this, OYSTER_AD_UNIT_ID);
-    builder.forContentAd(new OysterContentAd.OnContentAdLoadedListener() {
-      @Override
-      public void onContentAdLoaded(OysterContentAd oysterContentAd) {
-        data.add(position, oysterContentAd);
-        adapter.notifyDataSetChanged();
-      }
-    });
-    OysterAdLoader adLoader = builder.withAdListener(new OysterAdListener() {
-      @Override
-      public void onAdFailedToLoad(OysterException e) {
-        Toast.makeText(MainActivity.this,
-            "Failed to load oyster ad: " + e.getMessage(),
-            Toast.LENGTH_SHORT).show();
-      }
-    }).build();
-    adLoader.loadAd();
+    OysterAdLoader builder = new OysterAdLoader.Builder(this, OYSTER_AD_UNIT_ID) //
+        .forContentAd(new OysterContentAd.OnContentAdLoadedListener() {
+          @Override
+          public void onContentAdLoaded(OysterContentAd oysterContentAd) {
+            data.add(position, oysterContentAd);
+            adapter.notifyDataSetChanged();
+          }
+        }) //
+        .withAdListener(new OysterAdListener() {
+          @Override
+          public void onAdFailedToLoad(OysterException e) {
+            Toast.makeText(MainActivity.this,
+                "Failed to load oyster ad: " + e.getMessage(),
+                Toast.LENGTH_SHORT).show();
+          }
+        }) //
+        .withAdOysterAdOption(new OysterAdOption.Builder().setImageSize(OysterImageSize.MIDDLE).build())
+        .build()
+        .loadAd();
+
   }
 
   class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
