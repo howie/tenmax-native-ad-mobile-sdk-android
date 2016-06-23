@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onContentAdLoaded(OysterContentAd oysterContentAd) {
         data.add(position, oysterContentAd);
-        adapter.notifyItemInserted(position);
+        adapter.notifyDataSetChanged();
       }
     });
     OysterAdLoader adLoader = builder.withAdListener(new OysterAdListener() {
