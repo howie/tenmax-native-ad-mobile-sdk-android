@@ -22,7 +22,7 @@ import io.tenmax.oyster.OysterException;
 
 public class MainActivity extends AppCompatActivity {
 
-  private final static String OYSTER_AD_UNIT_ID = "OYSTER_AD_UNIT_ID";
+  private final static String OYSTER_AD_UNIT_ID = "c145f1cd389e49a5";
   private RecyclerAdapter adapter;
   private List<Object> data = new ArrayList<>();
 
