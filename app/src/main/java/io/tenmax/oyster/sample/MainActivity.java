@@ -125,12 +125,14 @@ public class MainActivity extends AppCompatActivity {
         adView.setBodyView(adView.findViewById(R.id.contentad_body));
         adView.setLogoView(adView.findViewById(R.id.contentad_logo));
         adView.setAdvertiserView(adView.findViewById(R.id.contentad_advertiser));
+        adView.setCallToAction(adView.findViewById(R.id.contentad_call_to_action));
       }
 
       public void bind(OysterContentAd oysterContentAd) {
         ((TextView) adView.getHeadlineView()).setText(oysterContentAd.getHeadline());
         ((TextView) adView.getBodyView()).setText(oysterContentAd.getBody());
         ((TextView) adView.getAdvertiserView()).setText(oysterContentAd.getAdvertiser());
+        ((TextView) adView.getCallToAction()).setText(oysterContentAd.getCallToAction());
 
         if (oysterContentAd.getImage().getDrawable() != null) {
           ((ImageView) adView.getImageView()).setImageDrawable(oysterContentAd.getImage()

@@ -66,6 +66,11 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         android:paddingTop="5dp"/>
+                <Button
+                        android:id="@+id/contentad_call_to_action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"/>
 
             </LinearLayout>
         </LinearLayout>
