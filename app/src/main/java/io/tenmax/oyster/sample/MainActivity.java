@@ -17,6 +17,7 @@ import io.tenmax.oyster.OysterAd;
 import io.tenmax.oyster.OysterAdListener;
 import io.tenmax.oyster.OysterAdLoader;
 import io.tenmax.oyster.OysterAdOption;
+import io.tenmax.oyster.OysterAdView;
 import io.tenmax.oyster.OysterContentAd;
 import io.tenmax.oyster.OysterContentAdView;
 import io.tenmax.oyster.OysterException;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     RecyclerView recycler = ((RecyclerView) findViewById(R.id.recycler));
     recycler.setLayoutManager(new LinearLayoutManager(this));
+    OysterAdView oysterAdView = (OysterAdView) findViewById(R.id.oyster_ad_view);
+    oysterAdView.loadAd();
     adapter = new RecyclerAdapter(data);
     requestAds(10);
     requestAds(18);
