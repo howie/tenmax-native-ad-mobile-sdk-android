@@ -25,7 +25,7 @@ import io.tenmax.oyster.OysterImageSize;
 
 public class MainActivity extends AppCompatActivity {
 
-  private final static String OYSTER_AD_UNIT_ID = "c145f1cd389e49a5";
+  private final static String OYSTER_AD_UNIT_ID = "OYSTER_AD_UNIT_ID";
   private RecyclerAdapter adapter;
   private List<Object> data = new ArrayList<>();
 

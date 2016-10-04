@@ -20,7 +20,7 @@
                                    android:layout_height="wrap_content"
                                    android:layout_alignParentBottom="true"
                                    android:id="@+id/oyster_ad_view"
-                                   app:oysterAdUnitId="c145f1cd389e49a5"
+                                   app:oysterAdUnitId="OYSTER_AD_UNIT_ID"
     />
 
 </RelativeLayout>
