@@ -28,8 +28,6 @@ dependencies {
 
 # 步驟 4.加入以下程式碼
 
-> OYSTER_AD_UNIT_ID為步驟3拿到的唯一廣告識別碼，記得填進去喔。
-
 ```java
 
 OysterAdLoader builder = new OysterAdLoader.Builder(context, OYSTER_AD_UNIT_ID) 
@@ -53,6 +51,7 @@ OysterAdLoader builder = new OysterAdLoader.Builder(context, OYSTER_AD_UNIT_ID)
     .loadAd();
         
 ```
+> OYSTER_AD_UNIT_ID為步驟3拿到的唯一廣告識別碼，記得填進去喔。
 
 # 步驟 5.用OysterContentAdView製作layout
 
