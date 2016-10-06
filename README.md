@@ -20,7 +20,7 @@ dependencies {
     ...
 }
 ```
->如果已經有compile 'com.google.android.gms:play-services-ads'，可以略過此步驟
+> 如果已經有compile 'com.google.android.gms:play-services-ads'，可以略過此步驟
 
 # 步驟 3.取得AdUnitID
 
@@ -28,7 +28,7 @@ dependencies {
 
 # 步驟 4.加入以下程式碼
 
-OYSTER_AD_UNIT_ID為步驟3拿到的唯一廣告識別碼，記得填進去喔。
+> OYSTER_AD_UNIT_ID為步驟3拿到的唯一廣告識別碼，記得填進去喔。
 
 ```java
 
